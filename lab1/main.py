@@ -39,9 +39,6 @@ def update_color():
     s_slider.set(s)
     l_slider.set(l)
 
-    cmyk_label.config(text=f'CMYK: {c:.2f}, {m:.2f}, {y:.2f}, {k:.2f}')
-    hls_label.config(text=f'HLS: {h:.2f}, {s:.2f}, {l:.2f}')
-
     r_entry.delete(0, tk.END)
     r_entry.insert(0, str(r))
     g_entry.delete(0, tk.END)
@@ -74,7 +71,7 @@ def update_rgb_from_cmyk(*args):
     r_slider.set(r)
     g_slider.set(g)
     b_slider.set(b)
-    update_color()
+    update_color()  # Добавлено
 
 def update_rgb_from_hls(*args):
     h = h_slider.get() / 360  
@@ -84,7 +81,7 @@ def update_rgb_from_hls(*args):
     r_slider.set(r)
     g_slider.set(g)
     b_slider.set(b)
-    update_color()
+    update_color()  # Добавлено
 
 def update_rgb_from_entry(slider, entry):
     value = entry.get()
@@ -124,7 +121,6 @@ def update_hls_from_entry(slider, entry):
             l_slider.set(max(0, min(value, 1)))
     update_rgb_from_hls()
 
-
 root = tk.Tk()
 root.title('Цветовые модели')
 
@@ -158,7 +154,6 @@ b_entry = ttk.Entry(frame, width=5)
 b_entry.grid(column=2, row=2)
 b_entry.insert(0, '0')
 b_entry.bind("<Return>", lambda _: update_rgb_from_entry(b_slider, b_entry))
-
 
 color_box = tk.Label(frame, text=' ', width=20, height=5, relief='solid')
 color_box.grid(column=0, row=3, columnspan=3)
@@ -200,8 +195,6 @@ k_entry.grid(column=2, row=7)
 k_entry.insert(0, '0.00')
 k_entry.bind("<Return>", lambda _: update_cmyk_from_entry(k_slider, k_entry))
 
-cmyk_label = ttk.Label(frame, text='CMYK: ')
-cmyk_label.grid(column=0, row=8, columnspan=3)
 
 # HLS
 ttk.Label(frame, text='H:').grid(column=0, row=9)
@@ -230,12 +223,5 @@ l_entry = ttk.Entry(frame, width=5)
 l_entry.grid(column=2, row=11)
 l_entry.insert(0, '0.00')
 l_entry.bind("<Return>", lambda _: update_hls_from_entry(l_slider, l_entry))
-
-hls_label = ttk.Label(frame, text='HLS: ')
-hls_label.grid(column=0, row=12, columnspan=3)
-
-
-update_color()
-
 
 root.mainloop()
